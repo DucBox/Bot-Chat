@@ -79,6 +79,3 @@ print(summary)
 ## 📜 License & Author
 - 📌 **Author:** Ngo Quang Duc
 - 📌 **Contact:** quangducngo0811@gmail.com
-
-🚀 Enjoy building with BOT ASSISTANT! 🎉
-
