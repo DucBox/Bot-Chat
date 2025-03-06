@@ -58,20 +58,36 @@ def summarize_chunk(chunk, chunk_id):
         str: A structured summary of the chunk.
     """
     prompt = f"""
-    You are an AI assistant summarizing a structured conversation between a **user and a chatbot assistant** in the field of **education and AI**.
+    ### **Role & Goal:**  
+    You are an **AI assistant** specializing in **summarizing structured conversations** between a **user and a chatbot assistant**.  
+    Your task is to **summarize each conversation chunk** while preserving **all key details, maintaining logical coherence, and ensuring readability**.  
 
-    **Your Goal:**
-    - Summarize the conversation **without missing any important details**.
-    - Ensure that **specific information like names, dates, times, locations, numbers, and key terms are always included**.
-    - Organize the information in a **graph-style format** to ensure clarity.
+    ### **Requirements:**  
+    1. **Preserve Key Information:**  
+    - Always retain names, dates, times, locations, numbers, and technical terms.  
+    - Keep the sequence of events intact, ensuring logical flow.  
+    - Avoid omitting critical decisions, conclusions, or action points.  
 
-    **Formatting Rules:**
-    - Maintain a structured format.
-    - Do NOT remove key details (dates, times, locations, numbers, names).
-    - Keep technical information precise.
+    2. **Ensure Contextual Consistency Across Chunks:**  
+    - Assume the conversation is part of a **larger, token-limited history**.  
+    - Summarize **without excessive repetition**, ensuring smooth integration with other chunks.  
+    - Do **not** assume missing context—only summarize based on the provided chunk.  
 
-    📝 **Final Notes & Decisions**:
-    - [Action items or conclusions]
+    3. **Formatting & Style:**  
+    - Present the summary in a **cohesive paragraph**, grouping related ideas naturally.  
+    - Use **clear and structured sentences** to maintain readability.  
+    - If a decision or conclusion is reached, emphasize it at the end.  
+    - In the start of summarization, signal that this is a summary of part of the conversation by using the phrase "This is a summarization of a part of history chat"
+    - At the end of summarization, use phrase "This is the end of summarization"
+    - Example: 
+    "This is a summarization of a part of history chat.
+    The user inquired about the details of the upcoming volunteer trip to Bắc Kạn. The chatbot confirmed that the trip is scheduled for March 14-16, 2025, with departure at 6 PM from Minh Thu’s house in Mai Dịch, Hà Nội. A total of 12 members will participate, and the donation fund currently stands at 15 million VNĐ. The budget is allocated as follows: 9 million VNĐ for gifts and school supplies, and 6 million VNĐ for renting a 16-seater car with a driver. The trip is organized by founder Dao Viet Thanh, co-founders Ta Thanh Thao and Nguyen Minh Thu, with Dao Quy Duong as the head of communications. The itinerary includes a departure at 6 PM on March 14, arriving in Bắc Kạn at 11 PM, followed by various activities such as distributing gifts, supporting local schools, and engaging in cultural interactions.
+    This is the end of summarization."
+    ---
+    
+    📝 **Final Summary:**  
+    [Generate a well-structured paragraph that captures all key points accurately.]  
+
     ```
     **Conversation Chunk to Summarize:**
     {chunk}
@@ -96,7 +112,7 @@ def summarize_chunk(chunk, chunk_id):
     except Exception as e:
         return f"⚠️ Error generating summary: {str(e)}"
 
-def summarize_and_embed_chat_history(chat_history):
+def summarize_and_embed_chat_history(chat_history): 
     """
     Summarizes the full chat history using chunking, embeds the summaries, and clears old history.
 

@@ -100,7 +100,7 @@ def process_document(file_path):
         return
     
     if text:
-        doc_id = os.path.basename(file_path)  # Use filename as unique doc ID
+        doc_id = os.path.basename(file_path) 
         embedding = embed_text(text, doc_id)
         if embedding:
             print(f"✅ Successfully stored embeddings for {file_path}")
