@@ -4,13 +4,10 @@ import openai
 from src.utils import BASE_DIR
 from src.config import OPENAI_API_KEY
 
-# Initialize OpenAI client
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
-# Initialize ChromaDB
 chroma_client = chromadb.PersistentClient(path=os.path.join(BASE_DIR, "chroma_db"))
 
-# Try to get the collection, create it if missing
 try:
     collection = chroma_client.get_collection(name="document_embeddings")
 except chromadb.errors.InvalidCollectionException:

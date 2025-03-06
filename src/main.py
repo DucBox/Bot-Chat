@@ -1,7 +1,6 @@
 import sys
 import os
 
-# Ensure the script can import from src/
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.chat import chat_with_gpt
@@ -14,7 +13,6 @@ def chatbot_loop():
     """
     print("\n🤖 Chatbot GPT-4o-mini (Type 'exit' to quit)")
 
-    # ✅ Load history BEFORE starting chatbot
     load_history_from_xml()
 
     while True:

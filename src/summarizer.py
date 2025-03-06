@@ -4,11 +4,9 @@ import datetime
 from src.config import OPENAI_API_KEY
 from src.files import embed_text
 
-# OpenAI client
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
-# Configurable chunk size
-CHUNK_SIZE = 700  # Default: 500 words per chunk
+CHUNK_SIZE = 700  
 
 # Debug directories
 DEBUG_CHUNK_DIR = "debug_logs/chunks"
@@ -105,20 +103,15 @@ def summarize_and_embed_chat_history(chat_history):
     Args:
         chat_history (list): List of (user, bot) conversation pairs.
     """
-    # ✅ Format chat history into a raw text block
     full_chat_text = "\n".join([f"User: {user}\nBot: {bot}" for user, bot in chat_history])
 
-    # ✅ Step 1: Chunk the chat history
     chunks = chunk_text(full_chat_text, chunk_size=CHUNK_SIZE)
 
-    # ✅ Step 2: Save raw chat chunks for debugging
     for i, chunk in enumerate(chunks):
         save_debug_file(DEBUG_CHUNK_DIR, f"chunk_{i}.txt", chunk)
 
-    # ✅ Step 3: Summarize each chunk separately
     summarized_chunks = [summarize_chunk(chunk, i) for i, chunk in enumerate(chunks)]
 
-    # ✅ Step 4: Embed all summarized chunks
     for i, summary in enumerate(summarized_chunks):
         embed_text(summary, f"chat_summary_chunk_{i}")
 

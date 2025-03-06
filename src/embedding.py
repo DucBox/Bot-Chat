@@ -1,16 +1,14 @@
 import sys
 import os
-# Ensure the script can import from src/
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import os
-import fitz  # PyMuPDF for PDF processing
+import fitz 
 import chromadb
 import openai
 from src.config import OPENAI_API_KEY
 
-# Set API key from config.py
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
-# Initialize ChromaDB
+
 chroma_client = chromadb.PersistentClient(path="/Users/ngoquangduc/Desktop/AI_Project/chatbot_project/chroma_db")
 collection = chroma_client.get_or_create_collection(name="document_embeddings")
 
@@ -108,5 +106,4 @@ def process_document(file_path):
             print(f"✅ Successfully stored embeddings for {file_path}")
 
 if __name__ == "__main__":
-    # Example usage (replace with your file paths)
     process_document("/Users/ngoquangduc/Desktop/AI_Project/chatbot_project/data/IELTS-Speaking-Part-1-Topics-Questions.pdf")

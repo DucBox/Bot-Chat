@@ -5,17 +5,13 @@ import openai
 from src.utils import BASE_DIR
 from src.config import OPENAI_API_KEY
 
-# Initialize OpenAI client
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
-# Initialize ChromaDB
 chroma_client = chromadb.PersistentClient(path=os.path.join(BASE_DIR, "chroma_db"))
 collection = chroma_client.get_or_create_collection(name="document_embeddings")
 
-# Configurable chunk size
-CHUNK_SIZE = 700  # Number of words per chunk
+CHUNK_SIZE = 700  
 
-# Directory for debugging embedded documents
 DEBUG_EMBED_DIR = "debug_logs/embedded_doc"
 os.makedirs(DEBUG_EMBED_DIR, exist_ok=True)
 
