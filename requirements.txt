@@ -1,0 +1,3 @@
+chromadb
+tiktokent
+pymupdf
